@@ -7,8 +7,6 @@ from .models import Usuario, Imovel, Contrato, Pagamento
 from .serializers import UsuarioSerializer, ImovelSerializer, ContratoSerializer, PagamentoSerializer
 # Create your views here.
 
-class UsuarioListCreateAPIView(APIView):
-    def get(self, request):
-        usuarios = Usuario.objects.all()
-        serializer = UsuarioSerializer(usuarios, many=True)
-        return Response(serializer.data)
+class UsuarioListCreateAPIView(ListCreateAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
