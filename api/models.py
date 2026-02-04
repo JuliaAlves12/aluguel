@@ -22,7 +22,7 @@ class Imovel(models.Model):
     tipo = models.CharField(max_length=50)
     valor_aluguel = models.DecimalField(decimal_places=2, max_digits=10)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    locador_id = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='imoveis')
+    locador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='imoveis')
 
     def __str__(self):
         return f"Imóvel: {self.titulo} -- Status: {self.status}"
