@@ -1,6 +1,19 @@
 from django.urls import path
-from .views import UsuarioListCreateAPIView
+from .views import *
 
 urlpatterns = [
-    path('usuarios', UsuarioListCreateAPIView.as_view())
+    path('usuarios', UsuarioListCreateAPIView.as_view()),
+    path('usuario/<int:pk>', UsuarioUpdatDestroyView.as_view()),
+    path('users', listar_usuarios),
+    path('imoveis', ImovelListCreateAPIView.as_view()),
+    path('imovel/<int:pk>', ImovelUpdateDetroyView.as_view()),
+    path('property', listar_imovel),
+    path('contratos', ContratoListCreateAPIView.as_view()),
+    path('contrato/<int:pk>', ContratoUpdateDetroyView.as_view()),
+    path('contracts', listar_contrato),
+    path('pagamentos', PagamentoListCreateAPIView.as_view()),
+    path('pagamento/<int:pk>',PagamentoUpdateDetroyView.as_view()),
+    path('payments', listar_pagamento),
 ]
+
+
