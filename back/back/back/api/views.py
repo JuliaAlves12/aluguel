@@ -14,7 +14,7 @@ class UsuarioListCreateAPIView(ListCreateAPIView):
     serializer_class = UsuarioSerializer
 
 # UPDATE e DELETE
-class UsuarioDetailView(RetrieveUpdateDestroyAPIView):
+class UsuarioUpdatDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
@@ -42,7 +42,7 @@ class ImovelListCreateAPIView(ListCreateAPIView):
     queryset = Imovel.objects.all()
     serializer_class = ImovelSerializer
 
-class ImovelDetailView(RetrieveUpdateDestroyAPIView):
+class ImovelUpdateDetroyView(RetrieveUpdateDestroyAPIView):
     queryset = Imovel.objects.all()
     serializer_class = ImovelSerializer
     
@@ -68,7 +68,7 @@ class ContratoListCreateAPIView(ListCreateAPIView):
     queryset = Contrato.objects.all()
     serializer_class = ContratoSerializer
 
-class ContratoDetailView(RetrieveUpdateDestroyAPIView):
+class ContratoUpdateDetroyView(RetrieveUpdateDestroyAPIView):
     queryset = Contrato.objects.all()
     serializer_class = ContratoSerializer
     
@@ -94,7 +94,7 @@ class PagamentoListCreateAPIView(ListCreateAPIView):
     queryset = Pagamento.objects.all()
     serializer_class = PagamentoSerializer
 
-class PagamentoDetailView(RetrieveUpdateDestroyAPIView):
+class PagamentoUpdateDetroyView(RetrieveUpdateDestroyAPIView):
     queryset = Pagamento.objects.all()
     serializer_class = PagamentoSerializer
     
@@ -114,4 +114,3 @@ def listar_pagamento(request):
     else:
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     
-############################ Via APIView #################################
