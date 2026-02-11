@@ -114,4 +114,3 @@ def listar_pagamento(request):
     else:
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     
-############################ Via APIView #################################
