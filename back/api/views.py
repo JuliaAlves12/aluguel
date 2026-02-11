@@ -14,7 +14,7 @@ class UsuarioListCreateAPIView(ListCreateAPIView):
     serializer_class = UsuarioSerializer
 
 # UPDATE e DELETE
-class UsuarioUpdatDestroyView(RetrieveUpdateDestroyAPIView):
+class UsuarioDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
@@ -42,7 +42,7 @@ class ImovelListCreateAPIView(ListCreateAPIView):
     queryset = Imovel.objects.all()
     serializer_class = ImovelSerializer
 
-class ImovelUpdateDetroyView(RetrieveUpdateDestroyAPIView):
+class ImovelDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Imovel.objects.all()
     serializer_class = ImovelSerializer
     
@@ -68,7 +68,7 @@ class ContratoListCreateAPIView(ListCreateAPIView):
     queryset = Contrato.objects.all()
     serializer_class = ContratoSerializer
 
-class ContratoUpdateDetroyView(RetrieveUpdateDestroyAPIView):
+class ContratoDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Contrato.objects.all()
     serializer_class = ContratoSerializer
     
@@ -94,7 +94,7 @@ class PagamentoListCreateAPIView(ListCreateAPIView):
     queryset = Pagamento.objects.all()
     serializer_class = PagamentoSerializer
 
-class PagamentoUpdateDetroyView(RetrieveUpdateDestroyAPIView):
+class PagamentoDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Pagamento.objects.all()
     serializer_class = PagamentoSerializer
     
