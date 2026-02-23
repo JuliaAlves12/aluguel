@@ -5,18 +5,21 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import Usuario, Imovel, Contrato, Pagamento
 from rest_framework.decorators import api_view
-from .serializers import UsuarioSerializer, ImovelSerializer, ContratoSerializer, PagamentoSerializer
+from .serializers import *
 
 
 # GET e POST
-class UsuarioListCreateAPIView(ListCreateAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
+# class UsuarioListCreateAPIView(ListCreateAPIView):
+#     queryset = Usuario.objects.all()
+#     serializer_class = UsuarioSerializer
 
-# UPDATE e DELETE
-class UsuarioDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
+# # UPDATE e DELETE
+# class UsuarioDetailView(RetrieveUpdateDestroyAPIView):
+#     queryset = Usuario.objects.all()
+#     serializer_class = UsuarioSerializer
+
+############################ Via Método ############################ 
+######################### Somente @api_view ########################
 
 # GET e POST
 @api_view(['GET', 'POST'])
@@ -115,3 +118,29 @@ def listar_pagamento(request):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     
 ############################ Via APIView #################################
+
+class UsuarioListCreateAPIView(APIView):
+
+    def get(self, request):
+        usuarios = Usuario.objects.all()
+        serializer = UsuarioSerializer(usuarios, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = UsuarioSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    
+class UsuarioDetailView(APIView):
+
+    def get_object(self, pk):
+        return Usuario.objects.get(pk=pk)
+    
+    def get(self, request, pk):
+        usuario = self.get_object(pk)
+        serializer = UsuarioSerializer(usuario)
+        return Response(serializer.data)
+    
+    
