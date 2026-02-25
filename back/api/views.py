@@ -16,6 +16,12 @@ class UsuarioViewSet(ModelViewSet):
     serializer_class = UsuarioSerializer
     # permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        tipo = self.request.query_params.get('tipo') #olha todos os usuarios pelo tipo
+        if tipo:
+            self.queryset = self.queryset.filter(tipo=tipo)
+        return self.queryset
+
 class ImovelViewSet(ModelViewSet):
     queryset = Imovel.objects.all()
     serializer_class = ImovelSerializer
