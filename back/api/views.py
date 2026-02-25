@@ -42,14 +42,22 @@ class ImovelViewSet(ModelViewSet):
     #         self.queryset = self.queryset.filter(status=status)
             
     #     return self.queryset #retorna fora dos if's, se não ele não entende
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ImovelFilter
 
 class ContratoViewSet(ModelViewSet):
     queryset = Contrato.objects.all()
     serializer_class = ContratoSerializer
 
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ContratoFilter
+
 class PagamentoViewSet(ModelViewSet):
     queryset = Pagamento.objects.all()
     serializer_class = PagamentoSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PagamentoFilter
 
 
 # GENERICS (Mais Fácil)
