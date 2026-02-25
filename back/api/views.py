@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view
 from .serializers import *
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from .filters import *
+from django_filters.rest_framework import DjangoFilterBackend
 
 ######################### VIA MODEL VIEW SET #############################
 
@@ -16,15 +18,30 @@ class UsuarioViewSet(ModelViewSet):
     serializer_class = UsuarioSerializer
     # permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        tipo = self.request.query_params.get('tipo') #olha todos os usuarios pelo tipo
-        if tipo:
-            self.queryset = self.queryset.filter(tipo=tipo)
-        return self.queryset
+    # def get_queryset(self):
+    #     tipo = self.request.query_params.get('tipo') #olha todos os usuarios pelo tipo
+    #     if tipo:
+    #         self.queryset = self.queryset.filter(tipo=tipo)
+    #     return self.queryset
+
+    filter_backends = [DjangoFilterBackend] # para dizer que ta usando os filters
+    filterset_class = UsuarioFilter
 
 class ImovelViewSet(ModelViewSet):
     queryset = Imovel.objects.all()
     serializer_class = ImovelSerializer
+
+    # def get_queryset(self):
+    #     tipo = self.request.query_params.get('tipo') #primeiro coleta os parametros
+    #     status = self.request.query_params.get('status')
+
+    #     if tipo:
+    #         self.queryset = self.queryset.filter(tipo=tipo) # faz os if's
+
+    #     if status:
+    #         self.queryset = self.queryset.filter(status=status)
+            
+    #     return self.queryset #retorna fora dos if's, se não ele não entende
 
 class ContratoViewSet(ModelViewSet):
     queryset = Contrato.objects.all()

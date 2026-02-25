@@ -19,7 +19,6 @@ urlpatterns = [
 
     path('users', listar_usuarios, name="listar_usuarios"),
 
-    path('', include(router.urls)),
     
     path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh', TokenRefreshView.as_view(), name='token_refresh'),
@@ -35,6 +34,7 @@ urlpatterns = [
     # path('pagamentos', PagamentoListCreateAPIView.as_view()),
     # path('pagamento/<int:pk>',PagamentoDetailView.as_view()),
     # path('payments', listar_pagamento),
+    path('', include(router.urls)),
 ]
 
 
