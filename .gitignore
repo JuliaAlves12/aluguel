@@ -1,1 +1,12 @@
-.env
+.env# Python
+back/.env/
+back/venv/
+back/__pycache__/
+back/db.sqlite3
+
+# Node
+front/node_modules/
+front/dist/
+
+# Diversos
+.DS_Store
