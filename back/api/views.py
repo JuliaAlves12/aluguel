@@ -7,7 +7,7 @@ from .models import Usuario, Imovel, Contrato, Pagamento
 from rest_framework.decorators import api_view
 from .serializers import *
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .filters import *
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -26,6 +26,20 @@ class UsuarioViewSet(ModelViewSet):
 
     filter_backends = [DjangoFilterBackend] # para dizer que ta usando os filters
     filterset_class = UsuarioFilter
+
+
+class RegisterViewSet(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response({"detail": "Usuário crado com sucesso."}, status = status.HTTP_201_CREATED)
+        return Response({"detail": "Erro ao criar o usuário"}, status = status.HTTP_400_BAD_REQUEST) 
+
+
 
 class ImovelViewSet(ModelViewSet):
     queryset = Imovel.objects.all()

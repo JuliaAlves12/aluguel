@@ -27,7 +27,7 @@ class RegisterSerializer(serializers.Serializer):
         email = validated_data['email']
 
         # Criando usuário na tabela AUTH_USER
-        user = User.objetcs.create_user(
+        user = User.objects.create_user(
             username = validated_data['username'],
             email = email,
             password = validated_data['password']
