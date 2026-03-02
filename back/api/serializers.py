@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from  .models import Usuario, Imovel, Pagamento, Contrato
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -6,6 +7,52 @@ class UsuarioSerializer(serializers.ModelSerializer):
         model = Usuario
         fields = '__all__'
         # read_only_fields = ['id']
+
+
+class RegisterSerializer(serializers.Serializer):
+    # Campos da Tabela AUTH_USER
+    username = serializers.CharField()
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+
+    # Campos da Tabela USUÁRIOS
+    nome = serializers.CharField(required=False, allow_blank=True, default="")
+    telefone = serializers.CharField(required=False, allow_blank=True, default="")
+    tipo = serializers.ChoiceField(choices=Usuario.TIPO_CHOICES)
+
+    def create(self, validated_data):
+        nome = validated_data.get('nome', '')
+        telefone = validated_data.get('telefone', '')
+        tipo = validated_data['tipo']
+        email = validated_data['email']
+
+        # Criando usuário na tabela AUTH_USER
+        user = User.objetcs.create_user(
+            username = validated_data['username'],
+            email = email,
+            password = validated_data['password']
+        )
+
+        if tipo == 'LOCADOR':
+            user.is_active = True
+        else:
+            user.is_active = False
+
+        user.is_staff = True
+        user.is_superuser = False
+        user.save()
+
+
+        # Criando usuário na atbela Usuario
+        Usuario.objects.create(
+            user = user,
+            nome = nome if nome else user.username,
+            email = email,
+            telefone = telefone,
+            tipo = tipo
+        )
+
+        return user
 
 
 class ImovelSerializer(serializers.ModelSerializer):
